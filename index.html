@@ -11,30 +11,25 @@
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="bodyContainer">
-
-     <div class="mainCharacterView left" >
-                <div class="nameBox">USS Schwarzenegger</div>
+        <div class="bodyContainer">
+            <div class="mainCharacterView left" >
+             <div id="nameBox1">USS Schwarzenegger</div>
                 <div class="playerImage"></div>
-                <div class="playerStats">
-
-                Hull : 20 <br>
-                FirePower : 5 <br>
-                Accuracy : .7 <br>
-
-z
+                 <div class="playerStats">
+                    <p class="hull">Hull: <span id="p1Hull">0</span></p>
+                    <p class="firePower">FirePower: <span id="p1FirePower">0</span></p>
+                    <p class="accuracy">Accuracy: <span id="p1Accuracy">0</span></p>       
                 </div>
-        </div>
+       </div>
 
 
-        <div class="mainCharacterView right">
-           
-            <div class="nameBox">Enemy</div>
-            <div class="enemyImage"></div>
+            <div class="mainCharacterView right">
+               <div id="nameBox2">Alien</div>
+               <div class="enemyImage"></div>
                 <div class="enemyStats">
-                    Hull : 6 <br>
-                    FirePower : 3 <br>
-                    Accuracy : .6 <br>
+                 <p class="hull">Hull: <span id="p2Hull">0</span></p>
+                 <p class="firePower">FirePower: <span id="p2FirePower">0</span></p>
+                 <p class="accuracy">Accuracy: <span id="p2Accuracy">0</span></p>
                 </div>
             </div>
 
@@ -42,3 +37,4 @@ z
     <script src="app.js"></script>
 </body>
 </html>
+

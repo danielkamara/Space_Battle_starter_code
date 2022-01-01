@@ -27,7 +27,7 @@
 .right {
 }
 
-.nameBox {
+#nameBox1 {
   border: 1px solid black;
   width: 25vw;
   height: 10vh;
@@ -38,6 +38,19 @@
   font-size: 2em;
   box-shadow: 0px 0px 20px 10px white;
 }
+
+#nameBox2 {
+  border: 1px solid black;
+  width: 25vw;
+  height: 10vh;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+  box-shadow: 0px 0px 20px 10px white;
+}
+
 .playerImage {
   border: 1px solidblack;
   width: 30vw;
@@ -50,11 +63,12 @@
 }
 .playerStats {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   border: 1px solidblack;
-  width: 15vw;
-  height: 15vh;
+  width: 20vw;
+  height: 20vh;
   text-align: center;
   font-size: 1.5em;
   box-shadow: 0px 0px 20px 10px white;
@@ -72,11 +86,12 @@
 }
 .enemyStats {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   border: 1px black;
-  width: 15vw;
-  height: 15vh;
+  width: 20vw;
+  height: 20vh;
   text-align: center;
   font-family: "Share Tech Mono", monospace;
   font-size: 1.5em;
