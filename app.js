@@ -1,17 +1,40 @@
 // setTimeout(function () {
-//   prompt(
+//   const userInput = prompt(
 //     "Welcome to Space Battle! - open the console on this page to play the game."
 //   );
 // }, 1000);
 
+// console.log(`Earth has been attacked by a horde of aliens! You are the captain of the USS Schwarzenegger,
+//   on a mission to destroy every last alien ship. Battle the aliens as you try to destroy them
+//   with your lasers. There are six alien ships. The aliens' weakness is that they are too logical
+//   and attack one at a time: they will wait to see the outcome of a battle before deploying another
+//   alien ship. Your strength is that you have the initiative and get to attack first. However, you
+//   do not have targeting lasers and can only attack the aliens in order. After you have destroyed a
+//   ship, you have the option to make a hasty retreat.`);
+
 // Give the User Instructions on how to play the game.
+const genHull = () => Math.floor(Math.random() * 4) + 3;
+const genFirePower = () => Math.floor(Math.random() * 3) + 2;
+const genAccuracy = () => (Math.floor(Math.random() * 3) + 6) / 10;
 
 class Ship {
-  constructor(name, hull, firepower) {
+  constructor(name, hull, firepower, accuracy) {
     this.name = name;
     this.hull = hull;
     this.firepower = firepower;
-    this.accuracy = (Math.floor(Math.random() * 3) + 6) / 10;
+    this.accuracy = accuracy;
+  }
+  attack(enemy) {
+    console.log(enemy);
+    if (this.accuracy < enemy.accuracy) {
+      this.hull -= enemy.firepower;
+      console.log(`You missed!!!!`, this.hull);
+    } else if (this.accuracy === enemy.accuracy) {
+      console.log("try Again", this.hull);
+    } else {
+      enemy.hull -= this.firepower;
+      console.log("Hit", this.hull);
+    }
   }
 }
 
@@ -29,62 +52,74 @@ const ussSchwarzenegger = new Ship("ussSchwarzenegger", 20, 5, 0.7);
 /*
 The alien ships should each have the following ranged properties determined randomly: 
 
-hull - between 3 and 6
+
 
 firepower - between 2 and 4 
 
 accuracy - between .6 and .8
 */
-class AlienShip {
-  constructor(name) {
-    this.name = name;
-    this.hull = Math.floor(Math.random() * 4) + 3;
-    this.firepower = Math.floor(Math.random() * 3) + 2;
-    this.accuracy = (Math.floor(Math.random() * 3) + 6) / 10;
+
+const generateEnemies = (numEnemies) => {
+  let alienShipArray = [];
+  for (i = 1; i <= numEnemies; i++) {
+    alienShipArray.push(
+      new Ship("Alien Ship #" + i, genHull(), genFirePower(), genAccuracy())
+    );
   }
-}
-// You could be battling six alien ships each with unique values.
-const Alien1 = new AlienShip("Alien Ship #1");
-const Alien2 = new AlienShip("Alien Ship #2");
-const Alien3 = new AlienShip("Alien Ship #3");
-const Alien4 = new AlienShip("Alien Ship #4");
-const Alien5 = new AlienShip("Alien Ship #5");
-const Alien6 = new AlienShip("Alien Ship #6");
+  return alienShipArray;
+};
+
+const selectRandomEnemy = (enemies) => {
+  return enemies[Math.floor(Math.random() * enemies.length)];
+};
+
+let randomEnemy = {};
 
 // Call a random Alien Ship to Battle
 
-let alienShipArray = [Alien1, Alien2, Alien3, Alien4, Alien5, Alien6];
-let randomAlienShip =
-  alienShipArray[Math.floor(Math.random() * alienShipArray.length)];
-
 //   Player 1 Attributes
-
-const player1 = (document.getElementById("nameBox1").innerHTML =
-  ussSchwarzenegger.name);
-
-const p1Hull = (document.getElementById("p1Hull").innerHTML =
-  ussSchwarzenegger.hull);
-
-const p1FirePower = (document.getElementById("p1FirePower").innerHTML =
-  ussSchwarzenegger.firepower);
-
-const p1Accuracy = (document.getElementById("p1Accuracy").innerHTML =
-  ussSchwarzenegger.accuracy);
 
 //   Player 2 Attributes
 
-const player2 = (document.getElementById("nameBox2").innerHTML =
-  randomAlienShip.name);
+const displayPlayer = (player) => {
+  document.querySelector("#nameBox1").innerHTML = player.name;
+  document.querySelector("#p1Hull").innerHTML = player.hull;
+  document.querySelector("#p1FirePower").innerHTML = player.firepower;
+  document.querySelector("#p1Accuracy").innerHTML = player.accuracy;
+};
 
-const p2Hull = (document.getElementById("p2Hull").innerHTML =
-  randomAlienShip.hull);
+const displayEnemy = (enemy = {}) => {
+  document.querySelector("#nameBox2").innerHTML =
+    enemy.name || "Enemy Approaches";
+  document.querySelector("#p2Hull").innerHTML = enemy.hull || 0;
+  document.querySelector("#p2FirePower").innerHTML = enemy.firepower || 0;
+  document.querySelector("#p2Accuracy").innerHTML = enemy.accuracy || 0;
+};
 
-const p2FirePower = (document.getElementById("p2FirePower").innerHTML =
-  randomAlienShip.firepower);
+let gameOver = false;
 
-const p2Accuracy = (document.getElementById("p2Accuracy").innerHTML =
-  randomAlienShip.accuracy);
+displayPlayer(ussSchwarzenegger);
+// displayEnemy();
+setTimeout(function () {
+  while (!gameOver) {
+    const enemies = generateEnemies(6);
 
-console.log(randomAlienShip);
+    let randomEnemy = selectRandomEnemy(enemies);
+    displayEnemy(randomEnemy);
 
-console.log(ussSchwarzenegger);
+    const userInput = prompt("Would you like to attack, or retreat?");
+
+    if ("retreat" === userInput) {
+      gameOver = true;
+      alert("Game Over!");
+    } else if (userInput === "attack") {
+      ussSchwarzenegger.attack(randomEnemy);
+    }
+  }
+}, 3000);
+
+// if (ussSchwarzenegger.accuracy < alienArray.accuracy) {
+//   console.log("You have been hit!");
+// }
+
+// const battle = () => {};
